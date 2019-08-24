@@ -1,10 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
-	"time"
+	"reflect"
 
 	"github.com/thomashedd/gopl.io/ch4/github"
 )
@@ -15,30 +16,20 @@ func main() {
 		log.Fatal(err)
 	}
 
-	fmt.Println(time.Now())
-	//month
-	mL, err := time.ParseDuration("720h0m0s") // don't understaand why I need this?
-	if err != nil {
-		log.Fatal(err)
-	}
-	//year
-	yL, err := time.ParseDuration("8760h0m0s")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// alternative method is just compare UTC time of time.Now() with time of issue creation?
-
 	fmt.Printf("%d issues:\n", result.TotalCount)
+
 	for _, item := range result.Items {
-		category := "Less than a year old"
-		if time.Now().Sub(item.CreatedAt) < mL {
-			category = "Less than a month old"
+
+		//fmt.Printf("#%-5d %9.9s %.55s\n Created At Time:%v\n Updated At Time:%v\n",
+		//	item.Number, item.User.Login, item.Title, item.CreatedAt, item.UpdatedAt)
+
+		fmt.Printf("#%-5d Time:%s\n", item.Number, item.CreatedAt.String())
+		fmt.Println(reflect.ValueOf(item.CreatedAt).Kind().String())
+		j, err := json.MarshalIndent(item, " ", "")
+		if err != nil {
+			panic(err)
 		}
-		if time.Now().Sub(item.CreatedAt) > yL {
-			category = "more than a year old"
-		}
-		fmt.Printf("#%-5d %9.9s %.55s\n %s\n Time:%v\n",
-			item.Number, item.User.Login, item.Title, category, item.CreatedAt)
+		fmt.Println(string(j))
+		//fmt.Println(time.Now())
 	}
 }
