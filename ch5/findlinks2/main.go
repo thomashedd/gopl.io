@@ -36,8 +36,8 @@ func visit(links []string, n *html.Node) []string {
 	return links
 }
 
-// findLinks performs an HTTP GET request for url, parses the
-// response as HTML, and extracts and returns the links.
+// findLinks performs an HTTP GET request for the url, parses
+// the response as HTML, and extracts and returns the links.
 func findLinks(url string) ([]string, error) {
 	resp, err := http.Get(url)
 	if err != nil {

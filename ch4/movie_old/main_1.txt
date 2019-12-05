@@ -1,0 +1,20 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"os"
+
+	"github.com/thomashedd/gopl.io/ch4/poster"
+)
+
+func main() {
+	result, err := poster.SearchMovies(os.Args[1:])
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, item := range result.Items {
+		fmt.Println(item.Title)
+	}
+}

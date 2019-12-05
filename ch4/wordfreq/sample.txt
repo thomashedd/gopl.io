@@ -1,0 +1,14 @@
+hello
+hello
+hello
+how are you
+how are u
+how art thou
+hello
+heyo
+hello how are you doing thank you for attending this class on go lang
+
+
+this is a new sentence and I am counting the words from it 
+
+adding more words to this file so I can see more count 
